@@ -50,7 +50,7 @@ function App() {
         <Route
           path="/dashboard"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute role="guru">
               <Dashboard />
             </ProtectedRoute>
           }
@@ -58,7 +58,7 @@ function App() {
         <Route
           path="/dashboard/class"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute role="guru">
               <DashboardClass />
             </ProtectedRoute>
           }
@@ -66,7 +66,7 @@ function App() {
         <Route
           path="/dashboard/class/create"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute role="guru">
               <CreateClass />
             </ProtectedRoute>
           }
@@ -74,7 +74,7 @@ function App() {
         <Route
           path="/dashboard/class/:id"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute role="guru">
               <DetailClass />
             </ProtectedRoute>
           }
