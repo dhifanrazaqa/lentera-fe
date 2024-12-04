@@ -9,6 +9,8 @@ import { checkAuthentication } from "./utils/verifyToken";
 import { useEffect } from "react";
 import Register from "./pages/auth/Register";
 import CreateClass from "./pages/guru/class/CreateClass";
+import DetailClass from "./pages/guru/class/DetailClass";
+import DashboardClass from "./pages/guru/class/DashboardClass";
 
 function App() {
   const syncAuth = useAuthStore((state) => state.syncAuth);
@@ -54,10 +56,26 @@ function App() {
           }
         />
         <Route
+          path="/dashboard/class"
+          element={
+            <ProtectedRoute>
+              <DashboardClass />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/dashboard/class/create"
           element={
             <ProtectedRoute>
               <CreateClass />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/class/:id"
+          element={
+            <ProtectedRoute>
+              <DetailClass />
             </ProtectedRoute>
           }
         />

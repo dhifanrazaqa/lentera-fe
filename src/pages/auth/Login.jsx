@@ -34,7 +34,6 @@ export default function Login() {
     try {
       const { user } = await login(data);
       setAuth(user);
-      alert("Login berhasil!");
       setServerError("");
     } catch (error) {
       const errorMessage =

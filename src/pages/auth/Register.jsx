@@ -33,7 +33,6 @@ export default function Register() {
     try {
       data.role = "siswa";
       await registerApi(data);
-      alert("Register berhasil!");
       setServerError("");
       setVisibleError(true);
       navigate("/login");

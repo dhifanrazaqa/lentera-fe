@@ -13,4 +13,10 @@ export const createClass = async (postData) => {
   return response.data;
 };
 
+// Melihat Detail Class
+export const detailClass = async (id) => {
+  const response = await api.get(`/classes/${id}`);
+  return response.data;
+};
+
 // Menambahkan student ke class

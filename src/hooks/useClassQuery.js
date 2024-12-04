@@ -1,11 +1,19 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { fetchClasss, createClass } from "../api/class";
+import { fetchClasss, createClass, detailClass } from "../api/class";
 
 export const useFetchClasses = () => {
   return useQuery({
     queryKey: ["classes"],
     queryFn: fetchClasss,
     staleTime: 1000 * 60 * 5, // Cache data selama 5 menit
+  });
+};
+
+export const useFetchDetailClass = (id) => {
+  return useQuery({
+    queryKey: ["class", id],
+    queryFn: () => detailClass(id),
+    enabled: !!id, // Cache data selama 5 menit
   });
 };
 

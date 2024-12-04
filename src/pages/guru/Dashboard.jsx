@@ -1,4 +1,4 @@
-import { Link, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { logout } from "../../api/auth";
 
 import useAuthStore from "../../store/authStore";
@@ -14,23 +14,12 @@ import DashboardLayout from "../../components/layout/DashboardLayout";
 
 export default function Dashboard() {
   const logoutStore = useAuthStore((state) => state.logout);
-  const userStore = useAuthStore((state) => state.user);
 
   const { data: classes, isLoading, isError } = useFetchClasses();
-
-  const handleClick = () => {
-    if (userStore) {
-      console.log(userStore);
-      alert(`User: ${userStore}`);
-    } else {
-      alert("No user is logged in.");
-    }
-  };
 
   const handleLogout = async () => {
     await logout();
     logoutStore();
-    alert("Anda berhasil logout");
     <Navigate to="/login" replace />;
   };
 
@@ -55,18 +44,12 @@ export default function Dashboard() {
           />
           <StatsCard image={BukuImage} label="Buku Dibuat" value={2} />
         </div>
-        <Link
-          to="/dashboard/class/create"
-          className="bg-red-500 text-white px-4 py-2"
-        >
-          Add Class
-        </Link>
         <div className="bg-white shadow-md rounded-md p-4 mb-4">
           <div className="font-bold text-lg">Kelasmu Saat Ini</div>
           <hr className="my-2" />
           <div className="grid grid-cols-4 gap-4">
             {classes.data.map((cls) => (
-              <ClassCard key={cls.id} title={cls.name} />
+              <ClassCard key={cls.id} title={cls.name} id={cls.id} />
             ))}
           </div>
         </div>
@@ -80,12 +63,6 @@ export default function Dashboard() {
             <ClassCard title={"Sample"} />
           </div>
         </div>
-        <button
-          onClick={handleClick}
-          className="bg-red-500 text-white px-4 py-2"
-        >
-          User
-        </button>
         <button
           onClick={handleLogout}
           className="bg-red-500 text-white px-4 py-2"
