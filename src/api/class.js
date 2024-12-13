@@ -3,7 +3,6 @@ import api from "./index";
 // Mendapatkan Daftar Class
 export const fetchClasss = async () => {
   const response = await api.get("/classes/my-class");
-  console.log(response.data);
   return response.data;
 };
 
@@ -19,4 +18,52 @@ export const detailClass = async (id) => {
   return response.data;
 };
 
-// Menambahkan student ke class
+// Membuat content Baru
+export const createContent = async (postData) => {
+  const response = await api.post("/contents/", postData);
+  return response.data;
+};
+
+// Menghapus content
+export const deleteContent = async (postData, id) => {
+  const response = await api.delete(`/contents/${id}`, { data: postData });
+  return response.data;
+};
+
+// Mendapatkan data students di class
+export const fetchStudentsClass = async (id) => {
+  const response = await api.get(`/classes/students/${id}`);
+  return response.data;
+};
+
+// Mengubah status student di class
+export const updateStudentStatus = async (postData) => {
+  const response = await api.post(`/classes/status-student`, postData);
+  return response.data;
+};
+
+// Mengubah status student di class
+export const deleteStudentClass = async (postData) => {
+  const response = await api.delete(`/classes/remove-student`, {
+    data: postData,
+  });
+  return response.data;
+};
+
+// Membuat Materi Baru
+export const createMaterial = async (postData) => {
+  const response = await api.post("/materials/", postData);
+  return response.data;
+};
+
+// Membuat Tugas Baru
+export const createAssignment = async (postData) => {
+  const response = await api.post("/assignments/", postData);
+  return response.data;
+};
+
+// Menampilkan submission kelas
+export const fetchSubmissions = async (classId, assignmentId) => {
+  const response = await api.get(`/assignments/class/${classId}/assignment/${assignmentId}/submissions`);
+  return response.data;
+};
