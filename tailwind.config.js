@@ -9,6 +9,7 @@ export default {
       },
       colors: {
         "base-gray": "#EBECEC",
+        "base-puprle": "#9353B5"
       },
     },
   },
