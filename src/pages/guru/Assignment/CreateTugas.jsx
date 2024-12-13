@@ -5,21 +5,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import Alert from "../../../components/card/Alert";
-import { useCreateClass } from "../../../hooks/useClassQuery";
-import { useNavigate } from "react-router-dom";
+import { useCreateAssignment } from "../../../hooks/useClassQuery";
+import { useLocation, useNavigate } from "react-router-dom";
 import FileUploadField from "../../../components/fields/FileUploadField";
 import uploadToCloudinary from "../../../utils/uploadImage";
+import DateTimePicker from "../../../components/fields/DatePickerField";
 
 const MAX_FILE_SIZE = 5000000;
-const ACCEPTED_IMAGE_TYPES = [
-  "image/jpeg",
-  "image/jpg",
-  "image/png",
-  "image/webp",
-];
+const ACCEPTED_IMAGE_TYPES = ["application/pdf"];
 
 const addClassSchema = z.object({
-  name: z.string().nonempty("Nama kelas tidak boleh kosong"),
+  title: z.string().nonempty("Nama kelas tidak boleh kosong"),
   description: z.string().nonempty("Deskripsi tidak boleh kosong"),
   file: z
     .any()
@@ -30,9 +26,11 @@ const addClassSchema = z.object({
     .refine((files) => files?.[0]?.size <= MAX_FILE_SIZE, {
       message: `Max file size is 5MB.`,
     }),
+  startDate: z.coerce.date(),
+  deadline: z.coerce.date(),
 });
 
-export default function CreateClass() {
+export default function CreateTugas() {
   const {
     register,
     handleSubmit,
@@ -43,7 +41,10 @@ export default function CreateClass() {
     resolver: zodResolver(addClassSchema),
   });
 
-  const createClass = useCreateClass();
+  const location = useLocation();
+  const { title, content } = location.state;
+
+  const createAssignment = useCreateAssignment();
   const navigate = useNavigate();
 
   const [serverError, setServerError] = useState("");
@@ -55,12 +56,13 @@ export default function CreateClass() {
     console.log(formData);
 
     const file = formData.file[0];
-    const imageUrl = await uploadToCloudinary(file);
+    const fileUrl = await uploadToCloudinary(file);
 
     delete formData.file;
-    formData.imageUrl = imageUrl;
+    formData.fileUrl = fileUrl;
+    formData.contentId = content.id;
 
-    createClass.mutate(formData, {
+    createAssignment.mutate(formData, {
       onError: (error) => {
         const errorMessage =
           error.response?.data?.message ||
@@ -83,18 +85,21 @@ export default function CreateClass() {
       <div>
         <h1 className="font-medium text-xl">Kelas</h1>
         <h1>
-          {"Kelas >"}
+          {"Kelas > Detail Pelajaran > "}
           <span className="font-medium text-sm border-b-2 border-blue-600 w-fit ml-1">
-            {"Tambah Kelas"}
+            {"Tambah Tugas"}
           </span>
         </h1>
         <br />
         <div className="">
           <form onSubmit={handleSubmit(onCreateClass)} className="">
             <div className="bg-white p-8 rounded-lg shadow-md">
-              <h2 className="text-xl font-semibold text-gray-700 mb-6 text-start">
-                Membuat Kelas Baru
+              <h2 className="text-xl font-bold text-gray-700 text-start">
+                {title}
               </h2>
+              <h4 className="text-md text-gray-700 mb-3 text-start">
+                {content.title}
+              </h4>
               {serverError && (
                 <Alert
                   type="error"
@@ -105,17 +110,17 @@ export default function CreateClass() {
               )}
               <TextField
                 type="text"
-                id="name"
-                label="Nama Kelas"
-                placeholder="Masukkan nama kelas"
+                id="title"
+                label="Judul Tugas"
+                placeholder="Masukkan judul tugas"
                 register={register}
-                error={errors.name?.message}
+                error={errors.title?.message}
                 isLoading={isLoading}
               />
               <FileUploadField
                 id="file"
-                label="Unggah Dokumen"
-                accept=".png,.jpg,.jpeg"
+                label="Unggah Instruksi Tugas"
+                accept=".pdf"
                 error={errors.file?.message}
                 register={register}
                 isLoading={isLoading}
@@ -124,14 +129,29 @@ export default function CreateClass() {
               <TextField
                 type="description"
                 id="description"
-                label="Deskripsi Kelas"
+                label="Deskripsi Tugas"
                 height="80px"
-                placeholder="Masukkan deskripsi kelas"
+                placeholder="Masukkan deskripsi tugas"
                 register={register}
                 error={errors.description?.message}
                 isLoading={isLoading}
               />
-
+              <DateTimePicker
+                type="datetime"
+                id="startDate"
+                label="Start Date"
+                register={register}
+                isLoading={isLoading}
+                error={errors.startDate?.message}
+              />
+              <DateTimePicker
+                type="datetime"
+                id="deadline"
+                label="Deadline"
+                register={register}
+                isLoading={isLoading}
+                error={errors.startDate?.message}
+              />
               {/* Tombol Masuk */}
               <div className="flex justify-end">
                 <button

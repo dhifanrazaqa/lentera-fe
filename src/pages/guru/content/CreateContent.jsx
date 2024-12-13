@@ -5,62 +5,39 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import Alert from "../../../components/card/Alert";
-import { useCreateClass } from "../../../hooks/useClassQuery";
-import { useNavigate } from "react-router-dom";
-import FileUploadField from "../../../components/fields/FileUploadField";
-import uploadToCloudinary from "../../../utils/uploadImage";
+import { useCreateContent } from "../../../hooks/useClassQuery";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-const MAX_FILE_SIZE = 5000000;
-const ACCEPTED_IMAGE_TYPES = [
-  "image/jpeg",
-  "image/jpg",
-  "image/png",
-  "image/webp",
-];
-
-const addClassSchema = z.object({
-  name: z.string().nonempty("Nama kelas tidak boleh kosong"),
-  description: z.string().nonempty("Deskripsi tidak boleh kosong"),
-  file: z
-    .any()
-    .refine((files) => files?.length >= 1, { message: "Image is required." })
-    .refine((files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type), {
-      message: ".jpg, .jpeg, .png and .webp files are accepted.",
-    })
-    .refine((files) => files?.[0]?.size <= MAX_FILE_SIZE, {
-      message: `Max file size is 5MB.`,
-    }),
+const addContentSchema = z.object({
+  title: z.string().nonempty("Judul tidak boleh kosong"),
+  body: z.string().nonempty("Deskripsi tidak boleh kosong"),
 });
 
-export default function CreateClass() {
+export default function CreateContent() {
+  const { id } = useParams();
+  const location = useLocation();
+  const { title } = location.state;
+
   const {
     register,
     handleSubmit,
     reset,
-    setValue,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(addClassSchema),
+    resolver: zodResolver(addContentSchema),
   });
 
-  const createClass = useCreateClass();
+  const createContent = useCreateContent();
   const navigate = useNavigate();
 
   const [serverError, setServerError] = useState("");
   const [visibleError, setVisibleError] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
-  const onCreateClass = async (formData) => {
+  const onCreateContent = async (formData) => {
+    formData.classId = id;
     setIsLoading(true);
-    console.log(formData);
-
-    const file = formData.file[0];
-    const imageUrl = await uploadToCloudinary(file);
-
-    delete formData.file;
-    formData.imageUrl = imageUrl;
-
-    createClass.mutate(formData, {
+    createContent.mutate(formData, {
       onError: (error) => {
         const errorMessage =
           error.response?.data?.message ||
@@ -72,7 +49,7 @@ export default function CreateClass() {
       onSuccess: () => {
         reset();
         setServerError("");
-        navigate("/login");
+        navigate(`/dashboard/class/${id}`);
         setIsLoading(false);
       },
     });
@@ -83,17 +60,17 @@ export default function CreateClass() {
       <div>
         <h1 className="font-medium text-xl">Kelas</h1>
         <h1>
-          {"Kelas >"}
+          {"Kelas > Detail Pelajaran > "}
           <span className="font-medium text-sm border-b-2 border-blue-600 w-fit ml-1">
-            {"Tambah Kelas"}
+            {"Tambah Bagian"}
           </span>
         </h1>
         <br />
         <div className="">
-          <form onSubmit={handleSubmit(onCreateClass)} className="">
+          <form onSubmit={handleSubmit(onCreateContent)} className="">
             <div className="bg-white p-8 rounded-lg shadow-md">
               <h2 className="text-xl font-semibold text-gray-700 mb-6 text-start">
-                Membuat Kelas Baru
+                {title}
               </h2>
               {serverError && (
                 <Alert
@@ -105,30 +82,21 @@ export default function CreateClass() {
               )}
               <TextField
                 type="text"
-                id="name"
-                label="Nama Kelas"
-                placeholder="Masukkan nama kelas"
+                id="title"
+                label="Judul Bagian"
+                placeholder="Masukkan judul bagian"
                 register={register}
-                error={errors.name?.message}
+                error={errors.title?.message}
                 isLoading={isLoading}
-              />
-              <FileUploadField
-                id="file"
-                label="Unggah Dokumen"
-                accept=".png,.jpg,.jpeg"
-                error={errors.file?.message}
-                register={register}
-                isLoading={isLoading}
-                setValue={setValue}
               />
               <TextField
                 type="description"
-                id="description"
-                label="Deskripsi Kelas"
+                id="body"
+                label="Deskripsi Materi"
                 height="80px"
-                placeholder="Masukkan deskripsi kelas"
+                placeholder="Masukkan deskripsi bagian"
                 register={register}
-                error={errors.description?.message}
+                error={errors.body?.message}
                 isLoading={isLoading}
               />
 
@@ -143,7 +111,7 @@ export default function CreateClass() {
                   } focus:outline-none focus:ring focus:ring-blue-200`}
                   disabled={isLoading}
                 >
-                  {isLoading ? "Loading.." : "Buat Kelas"}
+                  {isLoading ? "Loading.." : "Save"}
                 </button>
               </div>
             </div>

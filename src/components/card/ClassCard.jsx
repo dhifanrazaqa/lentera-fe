@@ -1,15 +1,22 @@
 import { Link } from "react-router-dom";
-import SampleClass from "../../assets/images/sample_class.png";
 import PropTypes from "prop-types";
 
-const ClassCard = ({ title = "", id = null }) => {
+const ClassCard = ({ classData, width = "", url = "/dashboard/class/" }) => {
   return (
-    <div className="rounded-md shadow-md">
-      <img src={SampleClass} className="rounded-t-md" alt="Murid Icon" />
-      <div className="px-4 py-2 mb-2">
-        <h2 className="text-sm font-semibold mb-2">{title}</h2>
+    <div
+      className={`bg-white rounded-md shadow-md ${width} sm:h-full sm:w-full`}
+    >
+      <img
+        src={classData.imageUrl}
+        className="w-full h-20 sm:h-40 object-cover rounded-t-md"
+        alt="Murid Icon"
+      />
+      <div className="p-2 mb-2">
+        <h2 className="text-xs sm:text-lg font-semibold mb-2">
+          {classData.name}
+        </h2>
         <Link
-          to={`class/${id}`}
+          to={`${url}${classData.id}`}
           className="bg-blue-gradient p-2 rounded-md text-white text-xs mb-2"
         >
           Lihat Kelas
@@ -20,8 +27,9 @@ const ClassCard = ({ title = "", id = null }) => {
 };
 
 ClassCard.propTypes = {
-  title: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
+  classData: PropTypes.object.isRequired,
+  width: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
 };
 
 export default ClassCard;

@@ -1,10 +1,19 @@
 import HomeHeader from "../components/headers/HomeHeader";
 import LenteraLogo from "../assets/lentera-logo.png";
+import DashboardSidebarMobile from "../components/navigation/DashboardSidebarMobile";
+import { useState } from "react";
 
-export default function Home() {
+export default function Landing() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div className="h-screen bg-[url('/src/assets/bg/home-bg.png')]">
-      <HomeHeader />
+      {isOpen && (
+        <div className="flex absolute w-full lg:hidden h-screen">
+          <DashboardSidebarMobile setIsOpen={setIsOpen} />
+        </div>
+      )}
+      <HomeHeader setIsOpen={setIsOpen} />
       <div className="h-4/6 flex flex-col justify-center items-center">
         <img
           src={LenteraLogo}

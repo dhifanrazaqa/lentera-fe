@@ -17,14 +17,14 @@ export default function DashboardClass() {
           Kelas
         </h1>
         <br />
-        <div className="bg-white shadow-md rounded-md p-4 mb-4">
+        <div className="sm:bg-white sm:shadow-md rounded-md sm:p-4 mb-4">
           <div className="font-bold text-lg">Kelasmu Saat Ini</div>
           <hr className="my-2" />
-          <div className="grid grid-cols-4 gap-4">
-            {classes.data.map((cls) => (
-              <ClassCard key={cls.id} title={cls.name} id={cls.id} />
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 md:gap-4">
+            {classes.data.userData.map((cls) => (
+              <ClassCard key={cls.id} classData={cls} width=""/>
             ))}
-            <div className="flex flex-col justify-center items-center rounded-md shadow-md min-h-48">
+            <div className="flex flex-col justify-center items-center bg-white rounded-md shadow-md min-h-48">
               <h2 className="text-sm text-center font-semibold mb-2">
                 Ingin membuat kelas baru?
               </h2>

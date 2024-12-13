@@ -8,6 +8,7 @@ import HomeHeader from "../../components/headers/HomeHeader";
 import TextField from "../../components/fields/TextField";
 import { Link } from "react-router-dom";
 import Alert from "../../components/card/Alert";
+import DashboardSidebarMobile from "../../components/navigation/DashboardSidebarMobile";
 
 const loginSchema = z.object({
   email: z.string().email("Email tidak valid"),
@@ -23,6 +24,7 @@ export default function Login() {
     resolver: zodResolver(loginSchema),
   });
 
+  const [isOpen, setIsOpen] = useState(false);
   const [serverError, setServerError] = useState("");
   const [visibleError, setVisibleError] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -39,7 +41,7 @@ export default function Login() {
       const errorMessage =
         error.response?.data?.message ||
         "Terjadi kesalahan. Silakan coba lagi.";
-      setVisibleError(true)
+      setVisibleError(true);
       setServerError(errorMessage);
     } finally {
       setIsLoading(false);
@@ -48,13 +50,18 @@ export default function Login() {
 
   return (
     <div className="h-screen bg-[url('/src/assets/bg/home-bg.png')]">
-      <HomeHeader />
+      {isOpen && (
+        <div className="flex absolute w-full lg:hidden h-screen z-50">
+          <DashboardSidebarMobile setIsOpen={setIsOpen} />
+        </div>
+      )}
+      <HomeHeader setIsOpen={setIsOpen} />
       <div className="h-4/5 flex justify-center items-center p-4">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="w-5/12 justify-items-center"
+          className="w-11/12 sm:w-8/12 md:w-7/12 xl:6/12 justify-items-center"
         >
-          <div className="bg-white p-8 rounded-lg shadow-md w-11/12">
+          <div className="bg-white p-4 md:p-8 rounded-lg shadow-md w-11/12">
             <h2 className="text-xl font-semibold text-gray-700 mb-6 text-start">
               Masuk ke Lentera
             </h2>

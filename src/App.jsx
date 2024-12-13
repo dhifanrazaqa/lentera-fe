@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
 import Login from "./pages/auth/Login";
 import Dashboard from "./pages/guru/Dashboard";
 import PublicRoute from "./utils/authorization/PublicRoute";
@@ -11,6 +10,20 @@ import Register from "./pages/auth/Register";
 import CreateClass from "./pages/guru/class/CreateClass";
 import DetailClass from "./pages/guru/class/DetailClass";
 import DashboardClass from "./pages/guru/class/DashboardClass";
+import CreateContent from "./pages/guru/content/CreateContent";
+import StudentClass from "./pages/guru/class/StudentClass";
+import CreateMateri from "./pages/guru/Material/CreateMateri";
+import CreateTugas from "./pages/guru/Assignment/CreateTugas";
+import DetailSubmission from "./pages/guru/Assignment/DetailSubmission";
+import DashboardForum from "./pages/guru/Forum/DashboardForum";
+import ClassForum from "./pages/guru/Forum/ClassForum";
+import Landing from "./pages/Landing";
+import Home from "./pages/siswa/Home";
+import DetailClassSiswa from "./pages/siswa/class/DetailClassSiswa";
+import DetailMaterialSiswa from "./pages/siswa/Material/DetailMaterialSiswa";
+import DetailQuizSiswa from "./pages/siswa/Quiz/DetailQuizSiswa";
+import ResultQuizSiswa from "./pages/siswa/Quiz/ResultQuizSiswa";
+import CreateQuiz from "./pages/guru/Quiz/CreateQuiz";
 
 function App() {
   const syncAuth = useAuthStore((state) => state.syncAuth);
@@ -30,7 +43,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Landing />} />
         <Route
           path="/login"
           element={
@@ -76,6 +89,118 @@ function App() {
           element={
             <ProtectedRoute role="guru">
               <DetailClass />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/class/:id/students"
+          element={
+            <ProtectedRoute role="guru">
+              <StudentClass />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/class/:id/content/create"
+          element={
+            <ProtectedRoute role="guru">
+              <CreateContent />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/class/:id/material/create"
+          element={
+            <ProtectedRoute role="guru">
+              <CreateMateri />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/class/:id/assignment/create"
+          element={
+            <ProtectedRoute role="guru">
+              <CreateTugas />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/class/:id/quiz/create"
+          element={
+            <ProtectedRoute role="guru">
+              <CreateQuiz />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/class/:classId/assignment/:assignmentId/submission"
+          element={
+            <ProtectedRoute role="guru">
+              <DetailSubmission />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/forum"
+          element={
+            <ProtectedRoute role="guru">
+              <DashboardForum />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/forum/:classId"
+          element={
+            <ProtectedRoute role="guru">
+              <ClassForum />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/forum/:classId"
+          element={
+            <ProtectedRoute role="guru">
+              <ClassForum />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/home"
+          element={
+            <ProtectedRoute role="siswa">
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/class/:id"
+          element={
+            <ProtectedRoute role="siswa">
+              <DetailClassSiswa />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/material/:id/"
+          element={
+            <ProtectedRoute role="siswa">
+              <DetailMaterialSiswa />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/quiz/:id/"
+          element={
+            <ProtectedRoute role="siswa">
+              <DetailQuizSiswa />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/quiz/:id/result"
+          element={
+            <ProtectedRoute role="siswa">
+              <ResultQuizSiswa />
             </ProtectedRoute>
           }
         />
