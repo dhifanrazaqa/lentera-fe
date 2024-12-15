@@ -7,7 +7,7 @@ import {
   useFetchFinalResult,
   useFetchQuizData,
 } from "../../../hooks/useClassQuery";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Alert from "../../../components/card/Alert";
 import LoadingPage from "../../../components/layout/LoadingPage";
 
@@ -22,6 +22,8 @@ export default function DetailQuizSiswa() {
   const answeringQuestion = useAnsweringQuestion();
   const getFinalResult = useFetchFinalResult();
   const navigate = useNavigate();
+  const location = useLocation();
+  const { state } = location;
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState([]);
@@ -139,6 +141,7 @@ export default function DetailQuizSiswa() {
         setServerError(errorMessage);
       },
       onSuccess: (result) => {
+        result.data.classId = state;
         navigate("result", { state: result.data });
       },
     });

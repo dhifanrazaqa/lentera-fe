@@ -37,7 +37,7 @@ const TextField = ({
             disabled={isLoading}
             className={`w-full py-2 ${
               icon ? "pl-10" : "pl-3"
-            } pr-10 placeholder:text-xs border rounded-lg focus:outline-none focus:ring focus:ring-blue-200 text-gray-700 ${
+            } pr-4 placeholder:text-xs border rounded-lg focus:outline-none focus:ring focus:ring-blue-200 text-gray-700 ${
               error ? "border-red-500 focus:ring-red-200" : ""
             } ${isLoading ? "bg-gray-100 cursor-not-allowed" : ""}`}
             {...(register && register(id))}

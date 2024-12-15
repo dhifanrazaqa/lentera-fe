@@ -21,6 +21,7 @@ import {
   statusClass,
   addStudentClass,
   checkSubmission,
+  fetchMaterial,
 } from "../api/class";
 
 export const useFetchClasses = () => {
@@ -137,6 +138,14 @@ export const useCreateMaterial = () => {
     onSuccess: () => {
       queryClient.invalidateQueries(["materials"]); // Refresh data setelah create
     },
+  });
+};
+
+export const useFetchMaterial = (id) => {
+  return useQuery({
+    queryKey: ["material", id],
+    queryFn: () => fetchMaterial(id),
+    enabled: !!id, // Cache data selama 5 menit
   });
 };
 

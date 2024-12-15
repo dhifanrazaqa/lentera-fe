@@ -74,6 +74,12 @@ export const createMaterial = async (postData) => {
   return response.data;
 };
 
+// Mendapatkan materi
+export const fetchMaterial = async (id) => {
+  const response = await api.get(`/materials/${id}`);
+  return response.data;
+};
+
 // Membuat Tugas Baru
 export const createAssignment = async (postData) => {
   const response = await api.post("/assignments/", postData);

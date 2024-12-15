@@ -58,7 +58,7 @@ export default function CreateMateri() {
       onSuccess: () => {
         reset();
         setServerError("");
-        navigate(path.replace("/content/material/create", ""));
+        navigate(path.replace("/material/create", ""));
         setIsLoading(false);
       },
     });
@@ -116,7 +116,7 @@ export default function CreateMateri() {
                 } focus:outline-none focus:ring focus:ring-blue-200`}
                 disabled={isLoading}
               >
-                {isLoading ? "Loading.." : "Buat Kelas"}
+                {isLoading ? "Loading.." : "Buat Materi"}
               </button>
             </div>
           </div>

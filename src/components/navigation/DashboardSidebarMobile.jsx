@@ -1,8 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
+import useAuthStore from "../../store/authStore";
 
 const DashboardSidebarMobile = ({ setIsOpen }) => {
   const location = useLocation();
+  const user = useAuthStore((state) => state.user);
+
   return (
     <>
       <div className="p-4 bg-white w-1/2 z-50">
@@ -21,10 +24,11 @@ const DashboardSidebarMobile = ({ setIsOpen }) => {
           </svg>
         </button>
         <Link
-          to="/dashboard"
+          to={user.role === "guru" ? "/dashboard" : "/home"}
           className="flex flex-row gap-2 hover:bg-gray-100 p-2"
         >
-          {location.pathname === "/dashboard" ? (
+          {location.pathname === "/dashboard" ||
+          location.pathname === "/home" ? (
             <svg
               width="18"
               height="18"
@@ -101,7 +105,7 @@ const DashboardSidebarMobile = ({ setIsOpen }) => {
           </h1>
         </Link>
         <Link
-          to="/dashboard/class"
+          to={user.role === "guru" ? "/dashboard/class" : "/class"}
           className="flex flex-row gap-2 hover:bg-gray-50 p-2"
         >
           {location.pathname.includes("class") ? (
@@ -168,7 +172,7 @@ const DashboardSidebarMobile = ({ setIsOpen }) => {
           </h1>
         </Link>
         <Link
-          to="/dashboard/forum"
+          to={user.role === "guru" ? "/dashboard/forum" : "/forum"}
           className="flex flex-row gap-2 hover:bg-gray-50 p-2"
         >
           {location.pathname.includes("forum") ? (
