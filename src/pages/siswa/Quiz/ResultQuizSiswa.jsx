@@ -51,7 +51,7 @@ export default function ResultQuizSiswa() {
                 <div className="flex justify-center items-center w-32 h-32 rounded-full bg-white">
                   <div className="flex justify-center items-center w-24 h-24 rounded-full bg-blue-gradient shadow-2xl">
                     <p className="font-bold text-white text-4xl">
-                      {state.score}
+                      {parseInt(state.score)}
                     </p>
                   </div>
                 </div>
