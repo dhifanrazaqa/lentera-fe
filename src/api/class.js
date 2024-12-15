@@ -62,8 +62,34 @@ export const createAssignment = async (postData) => {
   return response.data;
 };
 
+export const getAssignmentId = async ({assignmentId}) =>{
+  const response = await api.get(`/assignments/${assignmentId}`);
+  return response.data;
+}
+
+export const submitAssignment = async (postData) => {
+  const response = await api.post("/assignments/submit", postData);
+  return response.data;
+}
+
 // Menampilkan submission kelas
 export const fetchSubmissions = async (classId, assignmentId) => {
   const response = await api.get(`/assignments/class/${classId}/assignment/${assignmentId}/submissions`);
   return response.data;
 };
+
+export const getContentbyId = async (classId, contentId) => {
+  const response = await api.get(`/contents/${classId}/${contentId}`);
+  return response.data;
+}
+
+export const getSubmissionsId = async (id) => {
+  const response = await api.get(`/assignments/submission/${id}`);
+  return response.data;
+};
+
+export const gradeAssignment = async (postData) => {
+  const response = await api.post("/assignments/grade", postData);
+  return response.data;
+}
+

@@ -23,7 +23,9 @@ import DetailClassSiswa from "./pages/siswa/class/DetailClassSiswa";
 import DetailMaterialSiswa from "./pages/siswa/Material/DetailMaterialSiswa";
 import DetailQuizSiswa from "./pages/siswa/Quiz/DetailQuizSiswa";
 import ResultQuizSiswa from "./pages/siswa/Quiz/ResultQuizSiswa";
+import DetailTugasSiswa from "./pages/siswa/Tugas/DetailTugasSiswa";
 import CreateQuiz from "./pages/guru/Quiz/CreateQuiz";
+import ResultTugasSiswa from "./pages/siswa/Tugas/ResultTugasSiswa";
 
 function App() {
   const syncAuth = useAuthStore((state) => state.syncAuth);
@@ -204,6 +206,22 @@ function App() {
             </ProtectedRoute>
           }
         />
+       <Route
+        path="/class/:id/material/:cid/latihan/:lid"
+        element={
+          <ProtectedRoute role="siswa">
+            <DetailTugasSiswa />
+          </ProtectedRoute>
+        }
+      />
+       <Route
+        path="/class/:id/material/:cid/latihan/:lid/submisi/:sid"
+        element={
+          <ProtectedRoute role="siswa">
+            <ResultTugasSiswa/>
+          </ProtectedRoute>
+        }
+      />
       </Routes>
     </Router>
   );
