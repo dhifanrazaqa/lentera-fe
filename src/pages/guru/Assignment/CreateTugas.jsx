@@ -1,4 +1,3 @@
-import DashboardLayout from "../../../components/layout/DashboardLayout";
 import TextField from "../../../components/fields/TextField";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -81,95 +80,93 @@ export default function CreateTugas() {
   };
 
   return (
-    <DashboardLayout>
-      <div>
-        <h1 className="font-medium text-xl">Kelas</h1>
-        <h1>
-          {"Kelas > Detail Pelajaran > "}
-          <span className="font-medium text-sm border-b-2 border-blue-600 w-fit ml-1">
-            {"Tambah Tugas"}
-          </span>
-        </h1>
-        <br />
-        <div className="">
-          <form onSubmit={handleSubmit(onCreateClass)} className="">
-            <div className="bg-white p-8 rounded-lg shadow-md">
-              <h2 className="text-xl font-bold text-gray-700 text-start">
-                {title}
-              </h2>
-              <h4 className="text-md text-gray-700 mb-3 text-start">
-                {content.title}
-              </h4>
-              {serverError && (
-                <Alert
-                  type="error"
-                  message={serverError}
-                  visible={visibleError}
-                  setVisible={setVisibleError}
-                />
-              )}
-              <TextField
-                type="text"
-                id="title"
-                label="Judul Tugas"
-                placeholder="Masukkan judul tugas"
-                register={register}
-                error={errors.title?.message}
-                isLoading={isLoading}
+    <div>
+      <h1 className="font-medium text-xl">Kelas</h1>
+      <h1>
+        {"Kelas > Detail Pelajaran > "}
+        <span className="font-medium text-sm border-b-2 border-blue-600 w-fit ml-1">
+          {"Tambah Tugas"}
+        </span>
+      </h1>
+      <br />
+      <div className="">
+        <form onSubmit={handleSubmit(onCreateClass)} className="">
+          <div className="bg-white p-8 rounded-lg shadow-md">
+            <h2 className="text-xl font-bold text-gray-700 text-start">
+              {title}
+            </h2>
+            <h4 className="text-md text-gray-700 mb-3 text-start">
+              {content.title}
+            </h4>
+            {serverError && (
+              <Alert
+                type="error"
+                message={serverError}
+                visible={visibleError}
+                setVisible={setVisibleError}
               />
-              <FileUploadField
-                id="file"
-                label="Unggah Instruksi Tugas"
-                accept=".pdf"
-                error={errors.file?.message}
-                register={register}
-                isLoading={isLoading}
-                setValue={setValue}
-              />
-              <TextField
-                type="description"
-                id="description"
-                label="Deskripsi Tugas"
-                height="80px"
-                placeholder="Masukkan deskripsi tugas"
-                register={register}
-                error={errors.description?.message}
-                isLoading={isLoading}
-              />
-              <DateTimePicker
-                type="datetime"
-                id="startDate"
-                label="Start Date"
-                register={register}
-                isLoading={isLoading}
-                error={errors.startDate?.message}
-              />
-              <DateTimePicker
-                type="datetime"
-                id="deadline"
-                label="Deadline"
-                register={register}
-                isLoading={isLoading}
-                error={errors.startDate?.message}
-              />
-              {/* Tombol Masuk */}
-              <div className="flex justify-end">
-                <button
-                  type="submit"
-                  className={`content-end px-4 py-2 text-white ${
-                    isLoading ? "bg-gray-400" : "bg-blue-gradient"
-                  } rounded-lg hover: ${
-                    isLoading ? "bg-gray-400" : "bg-blue-600"
-                  } focus:outline-none focus:ring focus:ring-blue-200`}
-                  disabled={isLoading}
-                >
-                  {isLoading ? "Loading.." : "Buat Kelas"}
-                </button>
-              </div>
+            )}
+            <TextField
+              type="text"
+              id="title"
+              label="Judul Tugas"
+              placeholder="Masukkan judul tugas"
+              register={register}
+              error={errors.title?.message}
+              isLoading={isLoading}
+            />
+            <FileUploadField
+              id="file"
+              label="Unggah Instruksi Tugas"
+              accept=".pdf"
+              error={errors.file?.message}
+              register={register}
+              isLoading={isLoading}
+              setValue={setValue}
+            />
+            <TextField
+              type="description"
+              id="description"
+              label="Deskripsi Tugas"
+              height="80px"
+              placeholder="Masukkan deskripsi tugas"
+              register={register}
+              error={errors.description?.message}
+              isLoading={isLoading}
+            />
+            <DateTimePicker
+              type="datetime"
+              id="startDate"
+              label="Start Date"
+              register={register}
+              isLoading={isLoading}
+              error={errors.startDate?.message}
+            />
+            <DateTimePicker
+              type="datetime"
+              id="deadline"
+              label="Deadline"
+              register={register}
+              isLoading={isLoading}
+              error={errors.startDate?.message}
+            />
+            {/* Tombol Masuk */}
+            <div className="flex justify-end">
+              <button
+                type="submit"
+                className={`content-end px-4 py-2 text-white ${
+                  isLoading ? "bg-gray-400" : "bg-blue-gradient"
+                } rounded-lg hover: ${
+                  isLoading ? "bg-gray-400" : "bg-blue-600"
+                } focus:outline-none focus:ring focus:ring-blue-200`}
+                disabled={isLoading}
+              >
+                {isLoading ? "Loading.." : "Buat Kelas"}
+              </button>
             </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
-    </DashboardLayout>
+    </div>
   );
 }

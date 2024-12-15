@@ -1,4 +1,3 @@
-import DashboardLayout from "../../../components/layout/DashboardLayout";
 import TextField from "../../../components/fields/TextField";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -79,77 +78,75 @@ export default function CreateClass() {
   };
 
   return (
-    <DashboardLayout>
-      <div>
-        <h1 className="font-medium text-xl">Kelas</h1>
-        <h1>
-          {"Kelas >"}
-          <span className="font-medium text-sm border-b-2 border-blue-600 w-fit ml-1">
-            {"Tambah Kelas"}
-          </span>
-        </h1>
-        <br />
-        <div className="">
-          <form onSubmit={handleSubmit(onCreateClass)} className="">
-            <div className="bg-white p-8 rounded-lg shadow-md">
-              <h2 className="text-xl font-semibold text-gray-700 mb-6 text-start">
-                Membuat Kelas Baru
-              </h2>
-              {serverError && (
-                <Alert
-                  type="error"
-                  message={serverError}
-                  visible={visibleError}
-                  setVisible={setVisibleError}
-                />
-              )}
-              <TextField
-                type="text"
-                id="name"
-                label="Nama Kelas"
-                placeholder="Masukkan nama kelas"
-                register={register}
-                error={errors.name?.message}
-                isLoading={isLoading}
+    <div>
+      <h1 className="font-medium text-xl">Kelas</h1>
+      <h1>
+        {"Kelas >"}
+        <span className="font-medium text-sm border-b-2 border-blue-600 w-fit ml-1">
+          {"Tambah Kelas"}
+        </span>
+      </h1>
+      <br />
+      <div className="">
+        <form onSubmit={handleSubmit(onCreateClass)} className="">
+          <div className="bg-white p-8 rounded-lg shadow-md">
+            <h2 className="text-xl font-semibold text-gray-700 mb-6 text-start">
+              Membuat Kelas Baru
+            </h2>
+            {serverError && (
+              <Alert
+                type="error"
+                message={serverError}
+                visible={visibleError}
+                setVisible={setVisibleError}
               />
-              <FileUploadField
-                id="file"
-                label="Unggah Dokumen"
-                accept=".png,.jpg,.jpeg"
-                error={errors.file?.message}
-                register={register}
-                isLoading={isLoading}
-                setValue={setValue}
-              />
-              <TextField
-                type="description"
-                id="description"
-                label="Deskripsi Kelas"
-                height="80px"
-                placeholder="Masukkan deskripsi kelas"
-                register={register}
-                error={errors.description?.message}
-                isLoading={isLoading}
-              />
+            )}
+            <TextField
+              type="text"
+              id="name"
+              label="Nama Kelas"
+              placeholder="Masukkan nama kelas"
+              register={register}
+              error={errors.name?.message}
+              isLoading={isLoading}
+            />
+            <FileUploadField
+              id="file"
+              label="Unggah Dokumen"
+              accept=".png,.jpg,.jpeg"
+              error={errors.file?.message}
+              register={register}
+              isLoading={isLoading}
+              setValue={setValue}
+            />
+            <TextField
+              type="description"
+              id="description"
+              label="Deskripsi Kelas"
+              height="80px"
+              placeholder="Masukkan deskripsi kelas"
+              register={register}
+              error={errors.description?.message}
+              isLoading={isLoading}
+            />
 
-              {/* Tombol Masuk */}
-              <div className="flex justify-end">
-                <button
-                  type="submit"
-                  className={`content-end px-4 py-2 text-white ${
-                    isLoading ? "bg-gray-400" : "bg-blue-gradient"
-                  } rounded-lg hover: ${
-                    isLoading ? "bg-gray-400" : "bg-blue-600"
-                  } focus:outline-none focus:ring focus:ring-blue-200`}
-                  disabled={isLoading}
-                >
-                  {isLoading ? "Loading.." : "Buat Kelas"}
-                </button>
-              </div>
+            {/* Tombol Masuk */}
+            <div className="flex justify-end">
+              <button
+                type="submit"
+                className={`content-end px-4 py-2 text-white ${
+                  isLoading ? "bg-gray-400" : "bg-blue-gradient"
+                } rounded-lg hover: ${
+                  isLoading ? "bg-gray-400" : "bg-blue-600"
+                } focus:outline-none focus:ring focus:ring-blue-200`}
+                disabled={isLoading}
+              >
+                {isLoading ? "Loading.." : "Buat Kelas"}
+              </button>
             </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
-    </DashboardLayout>
+    </div>
   );
 }
