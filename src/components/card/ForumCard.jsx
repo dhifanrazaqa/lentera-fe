@@ -27,7 +27,7 @@ const ForumCard = ({ classData }) => {
         <h2 className="text-lg font-semibold mb-4">{classData.name}</h2>
         <Link
           to={`/dashboard/forum/${classData.id}`}
-          className="hidden sm:flex bg-blue-gradient p-2 rounded-md text-white text-xs"
+          className="w-fit hidden sm:flex bg-blue-gradient p-2 rounded-md text-white text-xs"
         >
           Lihat Forum
         </Link>

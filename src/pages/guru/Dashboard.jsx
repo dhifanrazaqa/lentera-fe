@@ -39,10 +39,26 @@ export default function Dashboard() {
       </h1>
       <br />
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-        <StatsCard image={MuridImage} label="Murid" value={stats.data.jumlahMurid} />
-        <StatsCard image={KelasImage} label="Kelas Berlangsung" value={stats.data.jumlahKelas} />
-        <StatsCard image={TugasImage} label="Tugas Perlu Dinilai" value={stats.data.jumlahSubmission} />
-        <StatsCard image={ForumImage} label="Interaksi Forum" value={stats.data.jumlahForum} />
+        <StatsCard
+          image={MuridImage}
+          label="Murid"
+          value={stats.data.jumlahMurid}
+        />
+        <StatsCard
+          image={KelasImage}
+          label="Kelas Berlangsung"
+          value={stats.data.jumlahKelas}
+        />
+        <StatsCard
+          image={TugasImage}
+          label="Tugas Perlu Dinilai"
+          value={stats.data.jumlahSubmission}
+        />
+        <StatsCard
+          image={ForumImage}
+          label="Interaksi Forum"
+          value={stats.data.jumlahForum}
+        />
       </div>
       <div className="sm:bg-white sm:shadow-md sm:rounded-md sm:p-4 mb-4">
         <div className="flex justify-between">
