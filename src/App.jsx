@@ -26,6 +26,8 @@ import ResultQuizSiswa from "./pages/siswa/Quiz/ResultQuizSiswa";
 import DetailTugasSiswa from "./pages/siswa/Tugas/DetailTugasSiswa";
 import CreateQuiz from "./pages/guru/Quiz/CreateQuiz";
 import ResultTugasSiswa from "./pages/siswa/Tugas/ResultTugasSiswa";
+import DashboardLayout from "./components/layout/DashboardLayout";
+import HomeClass from "./pages/siswa/class/HomeClass";
 
 function App() {
   const syncAuth = useAuthStore((state) => state.syncAuth);
@@ -66,7 +68,9 @@ function App() {
           path="/dashboard"
           element={
             <ProtectedRoute role="guru">
-              <Dashboard />
+              <DashboardLayout>
+                <Dashboard />
+              </DashboardLayout>
             </ProtectedRoute>
           }
         />
@@ -74,7 +78,9 @@ function App() {
           path="/dashboard/class"
           element={
             <ProtectedRoute role="guru">
-              <DashboardClass />
+              <DashboardLayout>
+                <DashboardClass />
+              </DashboardLayout>
             </ProtectedRoute>
           }
         />
@@ -82,7 +88,9 @@ function App() {
           path="/dashboard/class/create"
           element={
             <ProtectedRoute role="guru">
-              <CreateClass />
+              <DashboardLayout>
+                <CreateClass />
+              </DashboardLayout>
             </ProtectedRoute>
           }
         />
@@ -90,7 +98,9 @@ function App() {
           path="/dashboard/class/:id"
           element={
             <ProtectedRoute role="guru">
-              <DetailClass />
+              <DashboardLayout>
+                <DetailClass />
+              </DashboardLayout>
             </ProtectedRoute>
           }
         />
@@ -98,7 +108,9 @@ function App() {
           path="/dashboard/class/:id/students"
           element={
             <ProtectedRoute role="guru">
-              <StudentClass />
+              <DashboardLayout>
+                <StudentClass />
+              </DashboardLayout>
             </ProtectedRoute>
           }
         />
@@ -106,7 +118,9 @@ function App() {
           path="/dashboard/class/:id/content/create"
           element={
             <ProtectedRoute role="guru">
-              <CreateContent />
+              <DashboardLayout>
+                <CreateContent />
+              </DashboardLayout>
             </ProtectedRoute>
           }
         />
@@ -114,7 +128,9 @@ function App() {
           path="/dashboard/class/:id/material/create"
           element={
             <ProtectedRoute role="guru">
-              <CreateMateri />
+              <DashboardLayout>
+                <CreateMateri />
+              </DashboardLayout>
             </ProtectedRoute>
           }
         />
@@ -122,7 +138,9 @@ function App() {
           path="/dashboard/class/:id/assignment/create"
           element={
             <ProtectedRoute role="guru">
-              <CreateTugas />
+              <DashboardLayout>
+                <CreateTugas />
+              </DashboardLayout>
             </ProtectedRoute>
           }
         />
@@ -130,7 +148,9 @@ function App() {
           path="/dashboard/class/:id/quiz/create"
           element={
             <ProtectedRoute role="guru">
-              <CreateQuiz />
+              <DashboardLayout>
+                <CreateQuiz />
+              </DashboardLayout>
             </ProtectedRoute>
           }
         />
@@ -138,7 +158,9 @@ function App() {
           path="/dashboard/class/:classId/assignment/:assignmentId/submission"
           element={
             <ProtectedRoute role="guru">
-              <DetailSubmission />
+              <DashboardLayout>
+                <DetailSubmission />
+              </DashboardLayout>
             </ProtectedRoute>
           }
         />
@@ -146,7 +168,9 @@ function App() {
           path="/dashboard/forum"
           element={
             <ProtectedRoute role="guru">
-              <DashboardForum />
+              <DashboardLayout>
+                <DashboardForum />
+              </DashboardLayout>
             </ProtectedRoute>
           }
         />
@@ -154,15 +178,9 @@ function App() {
           path="/dashboard/forum/:classId"
           element={
             <ProtectedRoute role="guru">
-              <ClassForum />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/dashboard/forum/:classId"
-          element={
-            <ProtectedRoute role="guru">
-              <ClassForum />
+              <DashboardLayout>
+                <ClassForum />
+              </DashboardLayout>
             </ProtectedRoute>
           }
         />
@@ -170,7 +188,9 @@ function App() {
           path="/home"
           element={
             <ProtectedRoute role="siswa">
-              <Home />
+              <DashboardLayout>
+                <Home />
+              </DashboardLayout>
             </ProtectedRoute>
           }
         />
@@ -178,7 +198,9 @@ function App() {
           path="/class/:id"
           element={
             <ProtectedRoute role="siswa">
-              <DetailClassSiswa />
+              <DashboardLayout>
+                <DetailClassSiswa />
+              </DashboardLayout>
             </ProtectedRoute>
           }
         />
@@ -186,15 +208,19 @@ function App() {
           path="/material/:id/"
           element={
             <ProtectedRoute role="siswa">
-              <DetailMaterialSiswa />
+              <DashboardLayout>
+                <DetailMaterialSiswa />
+              </DashboardLayout>
             </ProtectedRoute>
           }
         />
         <Route
           path="/quiz/:id/"
           element={
-            <ProtectedRoute role="siswa">
-              <DetailQuizSiswa />
+            <ProtectedRoute>
+              <DashboardLayout>
+                <DetailQuizSiswa />
+              </DashboardLayout>
             </ProtectedRoute>
           }
         />
@@ -202,7 +228,39 @@ function App() {
           path="/quiz/:id/result"
           element={
             <ProtectedRoute role="siswa">
-              <ResultQuizSiswa />
+              <DashboardLayout>
+                <ResultQuizSiswa />
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/class"
+          element={
+            <ProtectedRoute role="siswa">
+              <DashboardLayout>
+                <HomeClass />
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/forum"
+          element={
+            <ProtectedRoute role="siswa">
+              <DashboardLayout>
+                <DashboardForum />
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/forum/:classId"
+          element={
+            <ProtectedRoute role="siswa">
+              <DashboardLayout>
+                <ClassForum />
+              </DashboardLayout>
             </ProtectedRoute>
           }
         />

@@ -6,6 +6,12 @@ export const fetchClasss = async () => {
   return response.data;
 };
 
+// Mendapatkan stats guru
+export const fetchStats = async () => {
+  const response = await api.get("/classes/stats");
+  return response.data;
+};
+
 // Membuat Class Baru
 export const createClass = async (postData) => {
   const response = await api.post("/classes/", postData);
@@ -15,6 +21,12 @@ export const createClass = async (postData) => {
 // Melihat Detail Class
 export const detailClass = async (id) => {
   const response = await api.get(`/classes/${id}`);
+  return response.data;
+};
+
+// Melihat Class status
+export const statusClass = async (id) => {
+  const response = await api.get(`/classes/${id}/status`);
   return response.data;
 };
 
@@ -33,6 +45,12 @@ export const deleteContent = async (postData, id) => {
 // Mendapatkan data students di class
 export const fetchStudentsClass = async (id) => {
   const response = await api.get(`/classes/students/${id}`);
+  return response.data;
+};
+
+// Menambahkan student ke Class
+export const addStudentClass = async (postData) => {
+  const response = await api.post("/classes/add-student", postData);
   return response.data;
 };
 
@@ -74,7 +92,45 @@ export const submitAssignment = async (postData) => {
 
 // Menampilkan submission kelas
 export const fetchSubmissions = async (classId, assignmentId) => {
-  const response = await api.get(`/assignments/class/${classId}/assignment/${assignmentId}/submissions`);
+  const response = await api.get(
+    `/assignments/class/${classId}/assignment/${assignmentId}/submissions`
+  );
+  return response.data;
+};
+
+// Membuat Quiz Baru
+export const createQuiz = async (postData) => {
+  const response = await api.post("/quizzes/", postData);
+  return response.data;
+};
+
+// Mendapatkan data quiz
+export const fetchQuizData = async (id) => {
+  const response = await api.get(`/quizzes/quiz/${id}`);
+  return response.data;
+};
+
+// Mendapatkan data answered quiz
+export const fetchAnsweredData = async (id) => {
+  const response = await api.get(`/quizzes/quiz/attempt/${id}`);
+  return response.data;
+};
+
+// Membuat attempt Baru
+export const createAttempt = async (postData) => {
+  const response = await api.post("/quizzes/quiz/attempt", postData);
+  return response.data;
+};
+
+// Membuat jawaban
+export const answeringQuestion = async (postData) => {
+  const response = await api.post("/quizzes/quiz/attempt/answer", postData);
+  return response.data;
+};
+
+// Mendapatkan final result
+export const fetchFinalResult = async (postData) => {
+  const response = await api.post(`/quizzes/quiz/attempt/submit`, postData);
   return response.data;
 };
 

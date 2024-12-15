@@ -1,77 +1,17 @@
-import DashboardLayout from "../../../components/layout/DashboardLayout";
 import BorderBoxCard from "../../../components/card/BorderBoxCard";
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 export default function ResultQuizSiswa() {
+  const location = useLocation();
+  const { state } = location;
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  const quizQuestions = [
-    {
-      question: "Apa ibu kota Indonesia?",
-      options: ["Jakarta", "Surabaya", "Bandung", "Yogyakarta"],
-    },
-    {
-      question: "Gunung tertinggi di dunia adalah?",
-      options: [
-        "Gunung Kilimanjaro",
-        "Gunung Everest",
-        "Gunung K2",
-        "Gunung Denali",
-      ],
-    },
-    {
-      question: "Siapakah penemu bola lampu?",
-      options: [
-        "Nikola Tesla",
-        "Thomas Edison",
-        "Alexander Graham Bell",
-        "Albert Einstein",
-      ],
-    },
-    {
-      question: "Gunung tertinggi di dunia adalah?",
-      options: [
-        "Gunung Kilimanjaro",
-        "Gunung Everest",
-        "Gunung K2",
-        "Gunung Denali",
-      ],
-    },
-    {
-      question: "Siapakah penemu bola lampu?",
-      options: [
-        "Nikola Tesla",
-        "Thomas Edison",
-        "Alexander Graham Bell",
-        "Albert Einstein",
-      ],
-    },
-    {
-      question: "Gunung tertinggi di dunia adalah?",
-      options: [
-        "Gunung Kilimanjaro",
-        "Gunung Everest",
-        "Gunung K2",
-        "Gunung Denali",
-      ],
-    },
-    {
-      question: "Siapakah penemu bola lampu?",
-      options: [
-        "Nikola Tesla",
-        "Thomas Edison",
-        "Alexander Graham Bell",
-        "Albert Einstein",
-      ],
-    },
-  ];
 
   const handleJumpQuestion = (nextIndex) => {
     setCurrentIndex(nextIndex);
   };
 
   return (
-    <DashboardLayout>
       <div>
         <h1 className="font-medium text-xl">Kelas</h1>
         <h1 className="text-sm">
@@ -88,10 +28,19 @@ export default function ResultQuizSiswa() {
                 Selamat, Kamu Telah Menyelesaikan Quiz dan Materi!
               </h1>
               <h2 className="font-bold mt-4">Skor</h2>
-              <p className="font-semibold text-sm mt-4">Bagus Sekali!</p>
+              <p className="font-semibold text-sm mt-4">
+                {state.score > 90
+                  ? `Bagus Sekali!`
+                  : state.score > 80
+                  ? "Bagus"
+                  : state.score > 75
+                  ? "Baik"
+                  : "Perbaiki Lagi!"}
+              </p>
               <p className="text-sm">
-                Kamu sudah memahami sebagian besar materi tentang rotasi Bumi
-                dan akibatnya. Terus belajar agar semakin paham, ya!
+                {state.score > 75
+                  ? `Kamu sudah memahami sebagian besar materi tentang ${state.title}. Terus belajar agar semakin paham, ya!`
+                  : `Pemahaman kamu mengenai materi ${state.title} masih kurang baik. Ayo tetap semangat belajar!`}
               </p>
             </div>
             <div className="flex flex-col md:flex-row gap-2 mt-8">
@@ -99,7 +48,9 @@ export default function ResultQuizSiswa() {
                 <div className="flex justify-center items-center w-40 h-40 rounded-full bg-blue-gradient">
                   <div className="flex justify-center items-center w-32 h-32 rounded-full bg-white">
                     <div className="flex justify-center items-center w-24 h-24 rounded-full bg-blue-gradient shadow-2xl">
-                      <p className="font-bold text-white text-4xl">80</p>
+                      <p className="font-bold text-white text-4xl">
+                        {state.score}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -107,7 +58,7 @@ export default function ResultQuizSiswa() {
               <div className="flex flex-col justify-center w-full md:w-4/6">
                 <BorderBoxCard color="blue">
                   <p className="text-sm">Jawaban Benar</p>
-                  <p className="font-bold">8/10</p>
+                  <p className="font-bold">{`${state.correct}/${state.totalQuestions}`}</p>
                 </BorderBoxCard>
                 <BorderBoxCard color="blue">
                   <p className="text-sm">Waktu Mengerjakan</p>
@@ -117,10 +68,10 @@ export default function ResultQuizSiswa() {
             </div>
             <h2 className="font-bold mt-8 mb-4">Ringkasan</h2>
             <div className="flex gap-2 overflow-x-auto">
-              {quizQuestions.map((item, index) => (
+              {state.review.map((item, index) => (
                 <div key={index} className="w-fit">
                   <BorderBoxCard
-                    color="green"
+                    color={item.isCorrect ? "green" : "red"}
                     clickable={true}
                     selected={currentIndex === index}
                     handler={() => handleJumpQuestion(index)}
@@ -132,12 +83,23 @@ export default function ResultQuizSiswa() {
             </div>
             <div className="mt-4">
               <h1 className="font-semibold text-lg">
-                {quizQuestions[currentIndex].question}
+                {state.review[currentIndex].question}
               </h1>
               <div className="mt-2">
-                {quizQuestions[currentIndex].options.map((item, index) => (
-                  <BorderBoxCard key={index} color="stone">
-                    <p>{item}</p>
+                {state.review[currentIndex].options.map((item, index) => (
+                  <BorderBoxCard
+                    key={index}
+                    color={
+                      item.id === state.review[currentIndex].yourAnswer
+                        ? state.review[currentIndex].isCorrect
+                          ? "green"
+                          : "red"
+                        : item.isCorrect
+                        ? "green"
+                        : "stone"
+                    }
+                  >
+                    <p>{item.text}</p>
                   </BorderBoxCard>
                 ))}
               </div>
@@ -193,6 +155,5 @@ export default function ResultQuizSiswa() {
           </div>
         </div>
       </div>
-    </DashboardLayout>
   );
 }

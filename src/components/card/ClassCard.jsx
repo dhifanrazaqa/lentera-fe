@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 const ClassCard = ({ classData, width = "", url = "/dashboard/class/" }) => {
   return (
     <div
-      className={`bg-white rounded-md shadow-md ${width} sm:h-full sm:w-full`}
+      className={`bg-white rounded-md shadow-lg ${width} sm:h-full sm:w-full`}
     >
       <img
         src={classData.imageUrl}
@@ -29,7 +29,7 @@ const ClassCard = ({ classData, width = "", url = "/dashboard/class/" }) => {
 ClassCard.propTypes = {
   classData: PropTypes.object.isRequired,
   width: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired,
+  url: PropTypes.string,
 };
 
 export default ClassCard;

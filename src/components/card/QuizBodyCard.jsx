@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 
 const QuizBodyCard = ({
   handleNext,
   handlePrevious,
+  handleFinish,
   currentNumber,
   maxNumber,
   quizData,
@@ -24,14 +24,17 @@ const QuizBodyCard = ({
         </div>
       </div>
       <div className="mb-4">
-        <h1 className="font-semibold text-lg">{quizData.question}</h1>
+        <h1 className="font-semibold text-lg">{quizData.text}</h1>
       </div>
       <div>
-        {quizData.options.map((item, index) => (
+        {quizData.Answer.map((item, index) => (
           <AnswerCard
             key={index}
-            text={item}
-            selectedAnswer={selectedAnswer}
+            answer={item}
+            questionId={quizData.id}
+            selectedAnswer={selectedAnswer.find(
+              (ans) => ans.answerId === item.id
+            )}
             setSelectedAnswer={setSelectedAnswer}
           />
         ))}
@@ -91,9 +94,12 @@ const QuizBodyCard = ({
           )}
         </div>
         {currentNumber >= maxNumber && (
-          <Link to={"result"} className="flex items-center bg-blue-gradient px-4 py-2 rounded-md text-white">
+          <button
+            onClick={handleFinish}
+            className="flex items-center bg-blue-gradient px-4 py-2 rounded-md text-white"
+          >
             Selesaikan Quiz
-          </Link>
+          </button>
         )}
       </div>
     </div>
@@ -106,30 +112,55 @@ QuizBodyCard.propTypes = {
   quizData: PropTypes.object.isRequired,
   handleNext: PropTypes.func.isRequired,
   handlePrevious: PropTypes.func.isRequired,
-  selectedAnswer: PropTypes.string.isRequired,
+  handleFinish: PropTypes.func.isRequired,
+  selectedAnswer: PropTypes.array,
   setSelectedAnswer: PropTypes.func.isRequired,
 };
 
 export default QuizBodyCard;
 
-const AnswerCard = ({ text, selectedAnswer, setSelectedAnswer }) => {
+const AnswerCard = ({
+  questionId,
+  answer,
+  selectedAnswer,
+  setSelectedAnswer,
+}) => {
   return (
     <button
-      onClick={() => setSelectedAnswer(text)}
+      onClick={() =>
+        setSelectedAnswer((prevSelectedAnswer) => {
+          const updatedAnswer = {
+            questionId,
+            answerId: answer.id,
+            text: answer.text,
+          };
+          const index = prevSelectedAnswer.findIndex(
+            (item) => item.questionId === questionId
+          );
+          if (index !== -1) {
+            const newSelectedAnswer = [...prevSelectedAnswer];
+            newSelectedAnswer[index] = updatedAnswer;
+            return newSelectedAnswer;
+          } else {
+            return [...prevSelectedAnswer, updatedAnswer];
+          }
+        })
+      }
       className={`${
-        selectedAnswer === text
+        selectedAnswer && selectedAnswer.answerId === answer.id
           ? "bg-base-puprle border-0 text-white hover:bg-base-puprle hover:text-white"
           : "bg-stone-200 border-2 hover:bg-purple-100 hover:border-purple-300"
       } w-full text-start rounded-md border-stone-300 mb-2 p-2 px-4
       `}
     >
-      {text}
+      {answer.text}
     </button>
   );
 };
 
 AnswerCard.propTypes = {
-  text: PropTypes.string.isRequired,
-  selectedAnswer: PropTypes.string.isRequired,
+  answer: PropTypes.object.isRequired,
+  questionId: PropTypes.string.isRequired,
+  selectedAnswer: PropTypes.object,
   setSelectedAnswer: PropTypes.func.isRequired,
 };

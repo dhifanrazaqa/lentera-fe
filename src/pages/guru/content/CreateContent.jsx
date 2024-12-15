@@ -1,4 +1,3 @@
-import DashboardLayout from "../../../components/layout/DashboardLayout";
 import TextField from "../../../components/fields/TextField";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -56,68 +55,66 @@ export default function CreateContent() {
   };
 
   return (
-    <DashboardLayout>
-      <div>
-        <h1 className="font-medium text-xl">Kelas</h1>
-        <h1>
-          {"Kelas > Detail Pelajaran > "}
-          <span className="font-medium text-sm border-b-2 border-blue-600 w-fit ml-1">
-            {"Tambah Bagian"}
-          </span>
-        </h1>
-        <br />
-        <div className="">
-          <form onSubmit={handleSubmit(onCreateContent)} className="">
-            <div className="bg-white p-8 rounded-lg shadow-md">
-              <h2 className="text-xl font-semibold text-gray-700 mb-6 text-start">
-                {title}
-              </h2>
-              {serverError && (
-                <Alert
-                  type="error"
-                  message={serverError}
-                  visible={visibleError}
-                  setVisible={setVisibleError}
-                />
-              )}
-              <TextField
-                type="text"
-                id="title"
-                label="Judul Bagian"
-                placeholder="Masukkan judul bagian"
-                register={register}
-                error={errors.title?.message}
-                isLoading={isLoading}
+    <div>
+      <h1 className="font-medium text-xl">Kelas</h1>
+      <h1>
+        {"Kelas > Detail Pelajaran > "}
+        <span className="font-medium text-sm border-b-2 border-blue-600 w-fit ml-1">
+          {"Tambah Bagian"}
+        </span>
+      </h1>
+      <br />
+      <div className="">
+        <form onSubmit={handleSubmit(onCreateContent)} className="">
+          <div className="bg-white p-8 rounded-lg shadow-md">
+            <h2 className="text-xl font-semibold text-gray-700 mb-6 text-start">
+              {title}
+            </h2>
+            {serverError && (
+              <Alert
+                type="error"
+                message={serverError}
+                visible={visibleError}
+                setVisible={setVisibleError}
               />
-              <TextField
-                type="description"
-                id="body"
-                label="Deskripsi Materi"
-                height="80px"
-                placeholder="Masukkan deskripsi bagian"
-                register={register}
-                error={errors.body?.message}
-                isLoading={isLoading}
-              />
+            )}
+            <TextField
+              type="text"
+              id="title"
+              label="Judul Bagian"
+              placeholder="Masukkan judul bagian"
+              register={register}
+              error={errors.title?.message}
+              isLoading={isLoading}
+            />
+            <TextField
+              type="description"
+              id="body"
+              label="Deskripsi Materi"
+              height="80px"
+              placeholder="Masukkan deskripsi bagian"
+              register={register}
+              error={errors.body?.message}
+              isLoading={isLoading}
+            />
 
-              {/* Tombol Masuk */}
-              <div className="flex justify-end">
-                <button
-                  type="submit"
-                  className={`content-end px-4 py-2 text-white ${
-                    isLoading ? "bg-gray-400" : "bg-blue-gradient"
-                  } rounded-lg hover: ${
-                    isLoading ? "bg-gray-400" : "bg-blue-600"
-                  } focus:outline-none focus:ring focus:ring-blue-200`}
-                  disabled={isLoading}
-                >
-                  {isLoading ? "Loading.." : "Save"}
-                </button>
-              </div>
+            {/* Tombol Masuk */}
+            <div className="flex justify-end">
+              <button
+                type="submit"
+                className={`content-end px-4 py-2 text-white ${
+                  isLoading ? "bg-gray-400" : "bg-blue-gradient"
+                } rounded-lg hover: ${
+                  isLoading ? "bg-gray-400" : "bg-blue-600"
+                } focus:outline-none focus:ring focus:ring-blue-200`}
+                disabled={isLoading}
+              >
+                {isLoading ? "Loading.." : "Save"}
+              </button>
             </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
-    </DashboardLayout>
+    </div>
   );
 }

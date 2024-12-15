@@ -1,14 +1,14 @@
-import api from './index';
+import api from "./index";
 
 // Login API
 export const login = async (credentials) => {
-  const response = await api.post('/auth/login', credentials);
+  const response = await api.post("/auth/login", credentials);
   return response.data;
 };
 
 // Register API
 export const register = async (userData) => {
-  const response = await api.post('/auth/register', userData);
+  const response = await api.post("/auth/register", userData);
   return response.data;
 };
 
