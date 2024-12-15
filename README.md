@@ -1,8 +1,14 @@
-# React + Vite
+# Lentera - Front End
+Lentera merupakan solusi pembelajaran berbasis aplikasi web untuk pembelajaran yang terstruktur dan terorganisasi. Membawa suasana yang interaktif dan menyenangkan, sehingga membuat pelajar menjadi antusias dan merasa belajar adalah hal yang seru. Lentera akan menyediakan fitur-fitur yang penting seperti manajemen dan pengaksesan akun pengguna, materi pembelajaran yang interaktif dan menarik, serta forum diskusi sebagai ruang kolaborasi. Dengan fitur-fitur tersebut, Lentera diharapkan menjadi media pembelajaran yang menciptakan lingkungan terorganisir, efisien, inklusif, dan kolaboratif.
+## Teknologi yang digunakan
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+ - React Js + Vite
+ - Tanstack Query
+ - Zustand
+ - Zod
+ - Vercel
+## Cara Install
+1. Clone Repository ini
+2. Pastikan file .env tersedia
+3. `npm install`
+4. `npm run dev`
