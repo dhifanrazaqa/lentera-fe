@@ -264,22 +264,26 @@ function App() {
             </ProtectedRoute>
           }
         />
-       <Route
-        path="/class/:id/material/:cid/latihan/:lid"
-        element={
-          <ProtectedRoute role="siswa">
-            <DetailTugasSiswa />
-          </ProtectedRoute>
-        }
-      />
-       <Route
-        path="/class/:id/material/:cid/latihan/:lid/submisi/:sid"
-        element={
-          <ProtectedRoute role="siswa">
-            <ResultTugasSiswa/>
-          </ProtectedRoute>
-        }
-      />
+        <Route
+          path="/class/:id/material/:cid/latihan/:lid"
+          element={
+            <ProtectedRoute role="siswa">
+              <DashboardLayout>
+                <DetailTugasSiswa />
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/class/:id/material/:cid/latihan/:lid/submisi/:sid"
+          element={
+            <ProtectedRoute role="siswa">
+              <DashboardLayout>
+                <ResultTugasSiswa />
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   );

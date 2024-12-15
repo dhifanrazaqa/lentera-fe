@@ -300,7 +300,10 @@ const ContentCard = ({
               <div className="flex overflow-x-auto space-x-4 sm:space-x-0 gap-4">
                 {content.assignments.map((item, index) => (
                   <div key={index} className="flex justify-between gap-4 ">
-                    <Link className="flex items-center space-x-2 px-4 py-2 bg-blue-gradient rounded-md">
+                    <Link
+                      to={`/class/${content.classId}/material/${content.id}/latihan/${item.id}`}
+                      className="flex items-center space-x-2 px-4 py-2 bg-blue-gradient rounded-md"
+                    >
                       <svg
                         width="24"
                         height="25"
@@ -327,49 +330,51 @@ const ContentCard = ({
                       </svg>
                       <span className="text-sm text-white">Lihat Tugas</span>
                     </Link>
-                    <Link
-                      to={`/dashboard/class/${content.classId}/assignment/${item.id}/submission`}
-                      className="flex items-center space-x-2 px-4 py-2 bg-transparent border-blue-400 border-2 rounded-md"
-                    >
-                      <svg
-                        width="24"
-                        height="25"
-                        viewBox="0 0 24 25"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
+                    {isGuru && (
+                      <Link
+                        to={`/dashboard/class/${content.classId}/assignment/${item.id}/submission`}
+                        className="flex items-center space-x-2 px-4 py-2 bg-transparent border-blue-400 border-2 rounded-md"
                       >
-                        <g clipPath="url(#clip0_251_5935)">
-                          <path
-                            d="M14 7.76953V1.22953C14.9251 1.57887 15.7653 2.12084 16.465 2.81953L19.949 6.30553C20.6485 7.00441 21.1909 7.84443 21.54 8.76953H15C14.7348 8.76953 14.4804 8.66417 14.2929 8.47664C14.1054 8.2891 14 8.03475 14 7.76953ZM22 11.2545V19.7695C21.9984 21.0951 21.4711 22.366 20.5338 23.3033C19.5964 24.2407 18.3256 24.7679 17 24.7695H7C5.67441 24.7679 4.40356 24.2407 3.46622 23.3033C2.52888 22.366 2.00159 21.0951 2 19.7695V5.76953C2.00159 4.44394 2.52888 3.17309 3.46622 2.23575C4.40356 1.29841 5.67441 0.771119 7 0.769531L11.515 0.769531C11.678 0.769531 11.839 0.782531 12 0.793531V7.76953C12 8.56518 12.3161 9.32824 12.8787 9.89085C13.4413 10.4535 14.2044 10.7695 15 10.7695H21.976C21.987 10.9305 22 11.0915 22 11.2545ZM14 19.7695C14 19.5043 13.8946 19.25 13.7071 19.0624C13.5196 18.8749 13.2652 18.7695 13 18.7695H8C7.73478 18.7695 7.48043 18.8749 7.29289 19.0624C7.10536 19.25 7 19.5043 7 19.7695C7 20.0347 7.10536 20.2891 7.29289 20.4766C7.48043 20.6642 7.73478 20.7695 8 20.7695H13C13.2652 20.7695 13.5196 20.6642 13.7071 20.4766C13.8946 20.2891 14 20.0347 14 19.7695ZM17 15.7695C17 15.5043 16.8946 15.25 16.7071 15.0624C16.5196 14.8749 16.2652 14.7695 16 14.7695H8C7.73478 14.7695 7.48043 14.8749 7.29289 15.0624C7.10536 15.25 7 15.5043 7 15.7695C7 16.0347 7.10536 16.2891 7.29289 16.4766C7.48043 16.6642 7.73478 16.7695 8 16.7695H16C16.2652 16.7695 16.5196 16.6642 16.7071 16.4766C16.8946 16.2891 17 16.0347 17 15.7695Z"
-                            fill="url(#paint0_linear_251_5935)"
-                          />
-                        </g>
-                        <defs>
-                          <linearGradient
-                            id="paint0_linear_251_5935"
-                            x1="12"
-                            y1="24.7695"
-                            x2="12"
-                            y2="0.769531"
-                            gradientUnits="userSpaceOnUse"
-                          >
-                            <stop stopColor="#0068FF" />
-                            <stop offset="1" stopColor="#549AFF" />
-                          </linearGradient>
-                          <clipPath id="clip0_251_5935">
-                            <rect
-                              width="24"
-                              height="24"
-                              fill="white"
-                              transform="translate(0 0.769531)"
+                        <svg
+                          width="24"
+                          height="25"
+                          viewBox="0 0 24 25"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g clipPath="url(#clip0_251_5935)">
+                            <path
+                              d="M14 7.76953V1.22953C14.9251 1.57887 15.7653 2.12084 16.465 2.81953L19.949 6.30553C20.6485 7.00441 21.1909 7.84443 21.54 8.76953H15C14.7348 8.76953 14.4804 8.66417 14.2929 8.47664C14.1054 8.2891 14 8.03475 14 7.76953ZM22 11.2545V19.7695C21.9984 21.0951 21.4711 22.366 20.5338 23.3033C19.5964 24.2407 18.3256 24.7679 17 24.7695H7C5.67441 24.7679 4.40356 24.2407 3.46622 23.3033C2.52888 22.366 2.00159 21.0951 2 19.7695V5.76953C2.00159 4.44394 2.52888 3.17309 3.46622 2.23575C4.40356 1.29841 5.67441 0.771119 7 0.769531L11.515 0.769531C11.678 0.769531 11.839 0.782531 12 0.793531V7.76953C12 8.56518 12.3161 9.32824 12.8787 9.89085C13.4413 10.4535 14.2044 10.7695 15 10.7695H21.976C21.987 10.9305 22 11.0915 22 11.2545ZM14 19.7695C14 19.5043 13.8946 19.25 13.7071 19.0624C13.5196 18.8749 13.2652 18.7695 13 18.7695H8C7.73478 18.7695 7.48043 18.8749 7.29289 19.0624C7.10536 19.25 7 19.5043 7 19.7695C7 20.0347 7.10536 20.2891 7.29289 20.4766C7.48043 20.6642 7.73478 20.7695 8 20.7695H13C13.2652 20.7695 13.5196 20.6642 13.7071 20.4766C13.8946 20.2891 14 20.0347 14 19.7695ZM17 15.7695C17 15.5043 16.8946 15.25 16.7071 15.0624C16.5196 14.8749 16.2652 14.7695 16 14.7695H8C7.73478 14.7695 7.48043 14.8749 7.29289 15.0624C7.10536 15.25 7 15.5043 7 15.7695C7 16.0347 7.10536 16.2891 7.29289 16.4766C7.48043 16.6642 7.73478 16.7695 8 16.7695H16C16.2652 16.7695 16.5196 16.6642 16.7071 16.4766C16.8946 16.2891 17 16.0347 17 15.7695Z"
+                              fill="url(#paint0_linear_251_5935)"
                             />
-                          </clipPath>
-                        </defs>
-                      </svg>
-                      <span className="text-sm text-blue-400">
-                        Lihat Pengumpulan
-                      </span>
-                    </Link>
+                          </g>
+                          <defs>
+                            <linearGradient
+                              id="paint0_linear_251_5935"
+                              x1="12"
+                              y1="24.7695"
+                              x2="12"
+                              y2="0.769531"
+                              gradientUnits="userSpaceOnUse"
+                            >
+                              <stop stopColor="#0068FF" />
+                              <stop offset="1" stopColor="#549AFF" />
+                            </linearGradient>
+                            <clipPath id="clip0_251_5935">
+                              <rect
+                                width="24"
+                                height="24"
+                                fill="white"
+                                transform="translate(0 0.769531)"
+                              />
+                            </clipPath>
+                          </defs>
+                        </svg>
+                        <span className="text-sm text-blue-400">
+                          Lihat Pengumpulan
+                        </span>
+                      </Link>
+                    )}
                   </div>
                 ))}
               </div>
@@ -424,7 +429,9 @@ const ContentCard = ({
                                   setServerError(errorMessage);
                                 },
                                 onSuccess: (result) => {
-                                  navigate(`/quiz/${item.id}/result`, { state: result.data });
+                                  navigate(`/quiz/${item.id}/result`, {
+                                    state: result.data,
+                                  });
                                 },
                               });
                             } else {

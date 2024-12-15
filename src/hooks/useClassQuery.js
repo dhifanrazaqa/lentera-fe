@@ -20,6 +20,7 @@ import {
   fetchStats,
   statusClass,
   addStudentClass,
+  checkSubmission,
 } from "../api/class";
 
 export const useFetchClasses = () => {
@@ -155,6 +156,14 @@ export const useFetchSubmissions = (classId, assignmentId) => {
     queryKey: ["submissions", classId, assignmentId],
     queryFn: () => fetchSubmissions(classId, assignmentId),
     enabled: !!assignmentId, // Cache data selama 5 menit
+  });
+};
+
+export const useCheckSubmissions = (id) => {
+  return useQuery({
+    queryKey: ["submissionStatus", id],
+    queryFn: () => checkSubmission(id),
+    enabled: !!id, // Cache data selama 5 menit
   });
 };
 
